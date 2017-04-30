@@ -19,6 +19,8 @@
 #include  "functions.h"
 #include  "macros.h"
 
+volatile unsigned int counter = 0;
+extern volatile bool sleep;
 void Init_Timers(void){
 //------------------------------------------------------------------------------
 // Timer Configurations
@@ -51,6 +53,41 @@ void Init_Timer_A0(void){
   TA0CCTL2 |= CCIE;                  // CCR2 enable interrupt
 }
 
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void Timer0_A0_ISR(void){
+  TA0CCR0 += TA0CCR0_INTERVAL;          // Add offset to TACCR0
+//  PJOUT ^= LED1; used to blink every time counter increased
+  // check if debouncing
 
+}
+
+#pragma vector = TIMER0_A1_VECTOR
+
+__interrupt void TIMER0_A1_ISR(void){
+  switch(__even_in_range(TA0IV,14)){
+  case I0: break;                        // No interrupt
+  case I2:                               // CCR1 not used
+    TA0CCR1 += TA0CCR1_INTERVAL;        // Add offset to TACCR1
+    //PJOUT ^= 0x02;
+    if(!sleep)
+        counter++;
+    if(counter > 40 && !sleep){
+        sleep = true;
+        counter = 0;
+    }
+    break;
+  case I4:                               // CCR2 not used
+//    TA0CCR2 += TA0CCR2_INTERVAL;        // Add offset to TACCR2
+    break;
+  case I6: break;                        // reserved
+  case I8: break;                        // reserved
+  case I10: break;                       // reserved
+  case I12: break;                       // reserved
+  case I14:                              // overflow
+    // Put code here for overflow
+    break;
+  default: break;
+  }
+}
 
 

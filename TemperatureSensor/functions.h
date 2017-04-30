@@ -9,12 +9,14 @@
 #define FUNCTIONS_H_
 
 // Function prototypes main
+
 void main(void);
 void Init_Conditions(void);
 void Switches_Process(void);
 void Init_Timers(void);
 void Init_LEDs(void);
-void intToNum(char buff[], unsigned int num);
+extern "C"{
+void intToNum(char buff[], unsigned int num); }
 void Init_ADC(void);
 void menuState();
 void tempState();
