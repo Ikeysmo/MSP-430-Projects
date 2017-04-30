@@ -1,0 +1,1 @@
+"./LCD.obj" "./clocks.obj" "./hamburger.obj" "./main.obj" "./ports.obj" "./serial_IOT.obj" "./serial_USB.obj" "./timers.obj" "../lnk_msp430fr5739.cmd" -llibmath.a -llibc.a 
