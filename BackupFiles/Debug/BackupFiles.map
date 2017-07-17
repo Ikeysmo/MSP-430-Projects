@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v16.9.0                     
 ******************************************************************************
->> Linked Mon Apr 17 11:33:21 2017
+>> Linked Fri Jul 07 00:20:02 2017
 
 OUTPUT FILE NAME:   <BackupFiles.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000cdde
+ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000d18a
 
 
 MEMORY CONFIGURATION
@@ -16,8 +16,8 @@ MEMORY CONFIGURATION
   PERIPHERALS_16BIT     00000100   00000100  00000000  00000100  RWIX
   INFOB                 00001800   00000080  00000000  00000080  RWIX
   INFOA                 00001880   00000080  00000000  00000080  RWIX
-  RAM                   00001c00   00000400  00000131  000002cf  RWIX
-  FRAM                  0000c200   00003d80  00000c7e  00003102  RWIX
+  RAM                   00001c00   00000400  0000016d  00000293  RWIX
+  FRAM                  0000c200   00003d80  0000109a  00002ce6  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   IPESIGNATURE          0000ff88   00000008  00000008  00000000  RWIX  ffff 
@@ -84,17 +84,18 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.bss       0    00001c00    00000088     UNINITIALIZED
+.bss       0    00001c00    000000c4     UNINITIALIZED
                   00001c00    00000080     (.common:_ZN10Serial_IOT11USB_Char_RxE)
-                  00001c80    00000002     (.common:ACCEL_X)
-                  00001c82    00000002     (.common:ACCEL_Y)
-                  00001c84    00000002     (.common:ACCEL_Z)
-                  00001c86    00000002     (.common:MSTATE)
+                  00001c80    0000003c     (.common:lcd)
+                  00001cbc    00000002     (.common:ACCEL_X)
+                  00001cbe    00000002     (.common:ACCEL_Y)
+                  00001cc0    00000002     (.common:ACCEL_Z)
+                  00001cc2    00000002     (.common:MSTATE)
 
-.data      0    00001c88    00000009     UNINITIALIZED
-                  00001c88    00000005     main.obj (.data)
-                  00001c8d    00000002     serial_IOT.obj (.data)
-                  00001c8f    00000002     serial_USB.obj (.data)
+.data      0    00001cc4    00000009     UNINITIALIZED
+                  00001cc4    00000005     main.obj (.data)
+                  00001cc9    00000002     serial_IOT.obj (.data)
+                  00001ccb    00000002     serial_USB.obj (.data)
 
 .stack     0    00001f60    000000a0     UNINITIALIZED
                   00001f60    00000002     rts430x_lc_sd_eabi.lib : boot.obj (.stack)
@@ -128,41 +129,58 @@ section   page    origin      length       input sections
 .mspabi.extab 
 *          0    0000c42c    00000000     UNINITIALIZED
 
-.const     0    0000c42c    00000000     UNINITIALIZED
+.const     0    0000c42c    00000016     
+                  0000c42c    00000016     main.obj (.const:.string)
 
-.text      0    0000c600    0000087e     
-                  0000c600    000000ee     rts430x_lc_sd_eabi.lib : copy_decompress_lzss.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  0000c6ee    000000be     ports.obj (.text:_Z11Init_Port_3v)
-                  0000c7ac    000000b2     rts430x_lc_sd_eabi.lib : cpy_tbl.obj (.text:copy_in)
-                  0000c85e    000000a4     ports.obj (.text:_Z11Init_Port_2v)
-                  0000c902    00000096     rts430x_lc_sd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
-                  0000c998    00000090     ports.obj (.text:_Z11Init_Port_1v)
-                  0000ca28    00000072     clocks.obj (.text:_Z11Init_Clocksv)
-                  0000ca9a    0000006e     main.obj (.text:_Z8Init_ADCv)
-                  0000cb08    0000005e     main.obj (.text:_isr:_Z9ADC10_ISRv)
-                  0000cb66    0000004e     main.obj (.text:main)
-                  0000cbb4    0000004a     ports.obj (.text:_Z11Init_Port_4v)
-                  0000cbfe    00000044     main.obj (.text:_Z10SetupAccelv)
-                  0000cc42    00000040     rts430x_lc_sd_eabi.lib : cpy_util.obj (.text:__memcpy_far)
-                  0000cc82    0000003e                            : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
-                  0000ccc0    0000003c     serial_IOT.obj (.text:_isr:_ZN10Serial_IOT7USB_ISREv)
-                  0000ccfc    0000003c     rts430x_lc_sd_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  0000cd38    00000034     main.obj (.text:_isr:_Z16switch_interruptv)
-                  0000cd6c    0000002e     main.obj (.text:_isr:_Z13TIMER0_A1_ISRv)
-                  0000cd9a    00000026     ports.obj (.text:_Z10Init_PortJv)
-                  0000cdc0    0000001e     serial_USB.obj (.text:_isr:_ZN10Serial_USB7USB_ISREv)
-                  0000cdde    0000001a     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
-                  0000cdf8    00000018                            : mult16_f5hw.obj (.text)
-                  0000ce10    00000016     ports.obj (.text:_Z10Init_Portsv)
-                  0000ce26    00000012     rts430x_lc_sd_eabi.lib : memcpy.obj (.text:memcpy)
-                  0000ce38    0000000e     main.obj (.text:_Z10powerRelayv)
-                  0000ce46    0000000e     main.obj (.text:_Z11turnOnRelayv)
-                  0000ce54    0000000e     main.obj (.text:_Z12turnOffRelayv)
-                  0000ce62    00000008     main.obj (.text:_isr:_Z13Timer0_A0_ISRv)
-                  0000ce6a    00000008     rts430x_lc_sd_eabi.lib : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
-                  0000ce72    00000006                            : exit.obj (.text:abort)
-                  0000ce78    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  0000ce7c    00000002                            : startup.obj (.text:_system_post_cinit)
+.text      0    0000c600    00000c9a     
+                  0000c600    000001b8     main.obj (.text:main)
+                  0000c7b8    000000fe     LCD.obj (.text:_ZN3LCD8Init_LCDEv)
+                  0000c8b6    000000ee     rts430x_lc_sd_eabi.lib : copy_decompress_lzss.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  0000c9a4    000000be     ports.obj (.text:_Z11Init_Port_3v)
+                  0000ca62    000000b2     rts430x_lc_sd_eabi.lib : cpy_tbl.obj (.text:copy_in)
+                  0000cb14    000000a4     ports.obj (.text:_Z11Init_Port_2v)
+                  0000cbb8    00000096     rts430x_lc_sd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
+                  0000cc4e    00000090     ports.obj (.text:_Z11Init_Port_1v)
+                  0000ccde    00000072     clocks.obj (.text:_Z11Init_Clocksv)
+                  0000cd50    0000006e     main.obj (.text:_Z8Init_ADCv)
+                  0000cdbe    0000005e     main.obj (.text:_isr:_Z9ADC10_ISRv)
+                  0000ce1c    0000004a     ports.obj (.text:_Z11Init_Port_4v)
+                  0000ce66    0000004a     LCD.obj (.text:_ZN3LCD7refreshEv)
+                  0000ceb0    00000044     main.obj (.text:_Z10SetupAccelv)
+                  0000cef4    00000040     LCD.obj (.text:_ZN3LCD11Init_SPI_B0Ev)
+                  0000cf34    00000040     rts430x_lc_sd_eabi.lib : cpy_util.obj (.text:__memcpy_far)
+                  0000cf74    0000003e                            : copy_zero_init.obj (.text:decompress:ZI:__TI_zero_init)
+                  0000cfb2    0000003c     serial_IOT.obj (.text:_isr:_ZN10Serial_IOT7USB_ISREv)
+                  0000cfee    0000003c     rts430x_lc_sd_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  0000d02a    00000034     main.obj (.text:_isr:_Z16switch_interruptv)
+                  0000d05e    0000002e     main.obj (.text:_isr:_Z13TIMER0_A1_ISRv)
+                  0000d08c    0000002a     LCD.obj (.text:_ZN3LCD7setLineEPcc)
+                  0000d0b6    00000028     LCD.obj (.text:_ZN3LCD8WriteInsEc)
+                  0000d0de    00000028     LCD.obj (.text:_ZN3LCD9WriteDataEc)
+                  0000d106    00000026     ports.obj (.text:_Z10Init_PortJv)
+                  0000d12c    00000026     LCD.obj (.text:_ZN3LCD5printEPccc)
+                  0000d152    0000001e     serial_USB.obj (.text:_isr:_ZN10Serial_USB7USB_ISREv)
+                  0000d170    0000001a     main.obj (.text:_Z10powerRelayv)
+                  0000d18a    0000001a     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
+                  0000d1a4    00000018                            : mult16_f5hw.obj (.text)
+                  0000d1bc    00000016     ports.obj (.text:_Z10Init_Portsv)
+                  0000d1d2    00000016     LCD.obj (.text:_ZN3LCD10ClrDisplayEv)
+                  0000d1e8    00000016     LCD.obj (.text:_ZN3LCD19spi_chipselect_idleEv)
+                  0000d1fe    00000014     LCD.obj (.text:_ZN3LCD12SPI_B0_writeEc)
+                  0000d212    00000012     LCD.obj (.text:_ZN3LCD21spi_chipselect_activeEv)
+                  0000d224    00000012     rts430x_lc_sd_eabi.lib : memcpy.obj (.text:memcpy)
+                  0000d236    0000000e     main.obj (.text:_Z11turnOnRelayv)
+                  0000d244    0000000e     main.obj (.text:_Z12turnOffRelayv)
+                  0000d252    0000000c     LCD.obj (.text:_ZN3LCD12DisplayOnOffEc)
+                  0000d25e    0000000a     LCD.obj (.text:_ZN3LCD10SetPostionEc)
+                  0000d268    0000000a     LCD.obj (.text:_ZN3LCD9lcd_4lineEv)
+                  0000d272    00000008     main.obj (.text:_isr:_Z13Timer0_A0_ISRv)
+                  0000d27a    00000008     rts430x_lc_sd_eabi.lib : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
+                  0000d282    00000006     LCD.obj (.text:_ZN3LCD14spi_reset_idleEv)
+                  0000d288    00000006     LCD.obj (.text:_ZN3LCD16spi_reset_activeEv)
+                  0000d28e    00000006     rts430x_lc_sd_eabi.lib : exit.obj (.text:abort)
+                  0000d294    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  0000d298    00000002                            : startup.obj (.text:_system_post_cinit)
 
 $fill000   0    0000ff80    00000004     
                   0000ff80    00000004     --HOLE-- [fill = ffff]
@@ -263,13 +281,14 @@ MODULE SUMMARY
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
+       main.obj                   872    30        13     
+       LCD.obj                    678    0         60     
        ports.obj                  632    0         0      
-       main.obj                   498    8         13     
        serial_IOT.obj             60     2         130    
        clocks.obj                 114    0         0      
        serial_USB.obj             30     2         2      
     +--+--------------------------+------+---------+---------+
-       Total:                     1334   12        145    
+       Total:                     2386   34        205    
                                                           
     C:\ti\ccsv7\tools\compiler\ti-cgt-msp430_16.9.0.LTS\lib\rts430x_lc_sd_eabi.lib
        copy_decompress_lzss.obj   238    0         0      
@@ -311,14 +330,14 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      44        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               2174   94        465    
+       Grand Total:               3226   116       525    
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 0000c41c records: 2, size/record: 8, table size: 16
-	.data: load addr=0000c40c, load size=0000000a bytes, run addr=00001c88, run size=00000009 bytes, compression=lzss
-	.bss: load addr=0000c416, load size=00000006 bytes, run addr=00001c00, run size=00000088 bytes, compression=zero_init
+	.data: load addr=0000c40c, load size=0000000a bytes, run addr=00001cc4, run size=00000009 bytes, compression=lzss
+	.bss: load addr=0000c416, load size=00000006 bytes, run addr=00001c00, run size=000000c4 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
@@ -333,9 +352,9 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                            
 -------   ----                            
-00001c80  ACCEL_X                         
-00001c82  ACCEL_Y                         
-00001c84  ACCEL_Z                         
+00001cbc  ACCEL_X                         
+00001cbe  ACCEL_Y                         
+00001cc0  ACCEL_Z                         
 00000700  ADC10CTL0                       
 00000701  ADC10CTL0_H                     
 00000700  ADC10CTL0_L                     
@@ -368,7 +387,7 @@ address   name
 00000712  ADC10MEM0_L                     
 000004be  BCD2BIN                         
 000004bc  BIN2BCD                         
-0000ce72  C$$EXIT                         
+0000d28e  C$$EXIT                         
 000008c0  CDCTL0                          
 000008c1  CDCTL0_H                        
 000008c0  CDCTL0_L                        
@@ -528,7 +547,7 @@ address   name
 000004c2  MPYS_L                          
 000004c1  MPY_H                           
 000004c0  MPY_L                           
-00001c86  MSTATE                          
+00001cc2  MSTATE                          
 000004c8  OP2                             
 000004e2  OP2H                            
 000004e3  OP2H_H                          
@@ -782,7 +801,7 @@ address   name
 00000460  TB2EX0                          
 0000046e  TB2IV                           
 00000450  TB2R                            
-00001c88  Temperature                     
+00001cc4  Temperature                     
 000005d0  UCA0ABCTL                       
 000005c6  UCA0BRW                         
 000005c7  UCA0BRW_H                       
@@ -895,29 +914,45 @@ address   name
 0000015c  WDTCTL                          
 0000015d  WDTCTL_H                        
 0000015c  WDTCTL_L                        
-0000cd9a  _Z10Init_PortJv                 
-0000ce10  _Z10Init_Portsv                 
-0000cbfe  _Z10SetupAccelv                 
-0000ce38  _Z10powerRelayv                 
-0000ca28  _Z11Init_Clocksv                
-0000c998  _Z11Init_Port_1v                
-0000c85e  _Z11Init_Port_2v                
-0000c6ee  _Z11Init_Port_3v                
-0000cbb4  _Z11Init_Port_4v                
-0000ce46  _Z11turnOnRelayv                
-0000ce54  _Z12turnOffRelayv               
-0000cd6c  _Z13TIMER0_A1_ISRv              
-0000ce62  _Z13Timer0_A0_ISRv              
-0000cd38  _Z16switch_interruptv           
-0000ca9a  _Z8Init_ADCv                    
-0000cb08  _Z9ADC10_ISRv                   
+0000d106  _Z10Init_PortJv                 
+0000d1bc  _Z10Init_Portsv                 
+0000ceb0  _Z10SetupAccelv                 
+0000d170  _Z10powerRelayv                 
+0000ccde  _Z11Init_Clocksv                
+0000cc4e  _Z11Init_Port_1v                
+0000cb14  _Z11Init_Port_2v                
+0000c9a4  _Z11Init_Port_3v                
+0000ce1c  _Z11Init_Port_4v                
+0000d236  _Z11turnOnRelayv                
+0000d244  _Z12turnOffRelayv               
+0000d05e  _Z13TIMER0_A1_ISRv              
+0000d272  _Z13Timer0_A0_ISRv              
+0000d02a  _Z16switch_interruptv           
+0000cd50  _Z8Init_ADCv                    
+0000cdbe  _Z9ADC10_ISRv                   
 00001c00  _ZN10Serial_IOT11USB_Char_RxE   
-00001c8e  _ZN10Serial_IOT14usb_rx_ring_wrE
-0000ccc0  _ZN10Serial_IOT7USB_ISREv       
-00001c8d  _ZN10Serial_IOT7txreadyE        
-00001c90  _ZN10Serial_USB14usb_rx_ring_wrE
-0000cdc0  _ZN10Serial_USB7USB_ISREv       
-00001c8f  _ZN10Serial_USB7txreadyE        
+00001cca  _ZN10Serial_IOT14usb_rx_ring_wrE
+0000cfb2  _ZN10Serial_IOT7USB_ISREv       
+00001cc9  _ZN10Serial_IOT7txreadyE        
+00001ccc  _ZN10Serial_USB14usb_rx_ring_wrE
+0000d152  _ZN10Serial_USB7USB_ISREv       
+00001ccb  _ZN10Serial_USB7txreadyE        
+0000d1d2  _ZN3LCD10ClrDisplayEv           
+0000d25e  _ZN3LCD10SetPostionEc           
+0000cef4  _ZN3LCD11Init_SPI_B0Ev          
+0000d252  _ZN3LCD12DisplayOnOffEc         
+0000d1fe  _ZN3LCD12SPI_B0_writeEc         
+0000d282  _ZN3LCD14spi_reset_idleEv       
+0000d288  _ZN3LCD16spi_reset_activeEv     
+0000d1e8  _ZN3LCD19spi_chipselect_idleEv  
+0000d212  _ZN3LCD21spi_chipselect_activeEv
+0000d12c  _ZN3LCD5printEPccc              
+0000ce66  _ZN3LCD7refreshEv               
+0000d08c  _ZN3LCD7setLineEPcc             
+0000c7b8  _ZN3LCD8Init_LCDEv              
+0000d0b6  _ZN3LCD8WriteInsEc              
+0000d0de  _ZN3LCD9WriteDataEc             
+0000d268  _ZN3LCD9lcd_4lineEv             
 00002000  __STACK_END                     
 000000a0  __STACK_SIZE                    
 000000a0  __SYSMEM_SIZE                   
@@ -929,9 +964,9 @@ UNDEFED   __TI_BINIT_Limit
 0000c40c  __TI_Handler_Table_Limit        
 UNDEFED   __TI_INITARRAY_Base             
 UNDEFED   __TI_INITARRAY_Limit            
-0000ce6a  __TI_ISR_TRAP                   
-0000c600  __TI_decompress_lzss            
-0000ccfc  __TI_decompress_none            
+0000d27a  __TI_ISR_TRAP                   
+0000c8b6  __TI_decompress_lzss            
+0000cfee  __TI_decompress_none            
 0000ffce  __TI_int31                      
 0000ffd0  __TI_int32                      
 0000ffd2  __TI_int33                      
@@ -959,26 +994,27 @@ UNDEFED   __TI_INITARRAY_Limit
 ffffffff  __TI_pprof_out_hndl             
 ffffffff  __TI_prof_data_size             
 ffffffff  __TI_prof_data_start            
-0000cc82  __TI_zero_init                  
+0000cf74  __TI_zero_init                  
 ffffffff  __c_args__                      
-0000cc42  __memcpy_far                    
-0000cdf8  __mspabi_mpyi_f5hw              
-0000c902  _auto_init_hold_wdt             
-0000cdde  _c_int00_noargs_noexit          
+0000cf34  __memcpy_far                    
+0000d1a4  __mspabi_mpyi_f5hw              
+0000cbb8  _auto_init_hold_wdt             
+0000d18a  _c_int00_noargs_noexit          
 0000fffe  _reset_vector                   
 00001f60  _stack                          
 0000c200  _sys_memory                     
-0000ce7c  _system_post_cinit              
-0000ce78  _system_pre_init                
-0000ce72  abort                           
-0000c7ac  copy_in                         
-00001c8a  counter                         
+0000d298  _system_post_cinit              
+0000d294  _system_pre_init                
+0000d28e  abort                           
+0000ca62  copy_in                         
+00001cc6  counter                         
 0000c400  fram_ro_start                   
 0000c200  fram_rw_start                   
 0000c600  fram_rx_start                   
-0000cb66  main                            
-0000ce26  memcpy                          
-00001c8c  sleep                           
+00001c80  lcd                             
+0000c600  main                            
+0000d224  memcpy                          
+00001cc8  sleep                           
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -1544,17 +1580,18 @@ address   name
 000008ce  CDIV_L                          
 000008cf  CDIV_H                          
 00001c00  _ZN10Serial_IOT11USB_Char_RxE   
-00001c80  ACCEL_X                         
-00001c82  ACCEL_Y                         
-00001c84  ACCEL_Z                         
-00001c86  MSTATE                          
-00001c88  Temperature                     
-00001c8a  counter                         
-00001c8c  sleep                           
-00001c8d  _ZN10Serial_IOT7txreadyE        
-00001c8e  _ZN10Serial_IOT14usb_rx_ring_wrE
-00001c8f  _ZN10Serial_USB7txreadyE        
-00001c90  _ZN10Serial_USB14usb_rx_ring_wrE
+00001c80  lcd                             
+00001cbc  ACCEL_X                         
+00001cbe  ACCEL_Y                         
+00001cc0  ACCEL_Z                         
+00001cc2  MSTATE                          
+00001cc4  Temperature                     
+00001cc6  counter                         
+00001cc8  sleep                           
+00001cc9  _ZN10Serial_IOT7txreadyE        
+00001cca  _ZN10Serial_IOT14usb_rx_ring_wrE
+00001ccb  _ZN10Serial_USB7txreadyE        
+00001ccc  _ZN10Serial_USB14usb_rx_ring_wrE
 00001f60  _stack                          
 00002000  __STACK_END                     
 0000c200  _sys_memory                     
@@ -1564,40 +1601,56 @@ address   name
 0000c40c  __TI_Handler_Table_Limit        
 0000c41c  __TI_CINIT_Base                 
 0000c42c  __TI_CINIT_Limit                
-0000c600  __TI_decompress_lzss            
 0000c600  fram_rx_start                   
-0000c6ee  _Z11Init_Port_3v                
-0000c7ac  copy_in                         
-0000c85e  _Z11Init_Port_2v                
-0000c902  _auto_init_hold_wdt             
-0000c998  _Z11Init_Port_1v                
-0000ca28  _Z11Init_Clocksv                
-0000ca9a  _Z8Init_ADCv                    
-0000cb08  _Z9ADC10_ISRv                   
-0000cb66  main                            
-0000cbb4  _Z11Init_Port_4v                
-0000cbfe  _Z10SetupAccelv                 
-0000cc42  __memcpy_far                    
-0000cc82  __TI_zero_init                  
-0000ccc0  _ZN10Serial_IOT7USB_ISREv       
-0000ccfc  __TI_decompress_none            
-0000cd38  _Z16switch_interruptv           
-0000cd6c  _Z13TIMER0_A1_ISRv              
-0000cd9a  _Z10Init_PortJv                 
-0000cdc0  _ZN10Serial_USB7USB_ISREv       
-0000cdde  _c_int00_noargs_noexit          
-0000cdf8  __mspabi_mpyi_f5hw              
-0000ce10  _Z10Init_Portsv                 
-0000ce26  memcpy                          
-0000ce38  _Z10powerRelayv                 
-0000ce46  _Z11turnOnRelayv                
-0000ce54  _Z12turnOffRelayv               
-0000ce62  _Z13Timer0_A0_ISRv              
-0000ce6a  __TI_ISR_TRAP                   
-0000ce72  C$$EXIT                         
-0000ce72  abort                           
-0000ce78  _system_pre_init                
-0000ce7c  _system_post_cinit              
+0000c600  main                            
+0000c7b8  _ZN3LCD8Init_LCDEv              
+0000c8b6  __TI_decompress_lzss            
+0000c9a4  _Z11Init_Port_3v                
+0000ca62  copy_in                         
+0000cb14  _Z11Init_Port_2v                
+0000cbb8  _auto_init_hold_wdt             
+0000cc4e  _Z11Init_Port_1v                
+0000ccde  _Z11Init_Clocksv                
+0000cd50  _Z8Init_ADCv                    
+0000cdbe  _Z9ADC10_ISRv                   
+0000ce1c  _Z11Init_Port_4v                
+0000ce66  _ZN3LCD7refreshEv               
+0000ceb0  _Z10SetupAccelv                 
+0000cef4  _ZN3LCD11Init_SPI_B0Ev          
+0000cf34  __memcpy_far                    
+0000cf74  __TI_zero_init                  
+0000cfb2  _ZN10Serial_IOT7USB_ISREv       
+0000cfee  __TI_decompress_none            
+0000d02a  _Z16switch_interruptv           
+0000d05e  _Z13TIMER0_A1_ISRv              
+0000d08c  _ZN3LCD7setLineEPcc             
+0000d0b6  _ZN3LCD8WriteInsEc              
+0000d0de  _ZN3LCD9WriteDataEc             
+0000d106  _Z10Init_PortJv                 
+0000d12c  _ZN3LCD5printEPccc              
+0000d152  _ZN10Serial_USB7USB_ISREv       
+0000d170  _Z10powerRelayv                 
+0000d18a  _c_int00_noargs_noexit          
+0000d1a4  __mspabi_mpyi_f5hw              
+0000d1bc  _Z10Init_Portsv                 
+0000d1d2  _ZN3LCD10ClrDisplayEv           
+0000d1e8  _ZN3LCD19spi_chipselect_idleEv  
+0000d1fe  _ZN3LCD12SPI_B0_writeEc         
+0000d212  _ZN3LCD21spi_chipselect_activeEv
+0000d224  memcpy                          
+0000d236  _Z11turnOnRelayv                
+0000d244  _Z12turnOffRelayv               
+0000d252  _ZN3LCD12DisplayOnOffEc         
+0000d25e  _ZN3LCD10SetPostionEc           
+0000d268  _ZN3LCD9lcd_4lineEv             
+0000d272  _Z13Timer0_A0_ISRv              
+0000d27a  __TI_ISR_TRAP                   
+0000d282  _ZN3LCD14spi_reset_idleEv       
+0000d288  _ZN3LCD16spi_reset_activeEv     
+0000d28e  C$$EXIT                         
+0000d28e  abort                           
+0000d294  _system_pre_init                
+0000d298  _system_post_cinit              
 0000ffce  __TI_int31                      
 0000ffd0  __TI_int32                      
 0000ffd2  __TI_int33                      
@@ -1632,4 +1685,4 @@ UNDEFED   __TI_BINIT_Limit
 UNDEFED   __TI_INITARRAY_Base             
 UNDEFED   __TI_INITARRAY_Limit            
 
-[646 symbols]
+[663 symbols]

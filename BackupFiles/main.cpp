@@ -251,6 +251,8 @@ __interrupt void switch_interrupt(void){
 void powerRelay(){
     P3OUT |= L_FORWARD;
     P3OUT &= ~L_REVERSE;
+    P3OUT |= R_FORWARD;
+    P3OUT &= ~R_REVERSE;
 }
 
 
@@ -266,7 +268,7 @@ void main(void) {
     powerRelay();
 
     __delay_cycles(10000);
-//    lcd.Init_LCD();
+    lcd.Init_LCD();
     __delay_cycles(1000);
 
     Init_ADC();
@@ -276,12 +278,43 @@ void main(void) {
     //serial_USB.Init_Serial(b9600);
     //serial_IOT.Init_Serial(b115200);
     __bis_SR_register(GIE); //enable interrupts
-//    lcd.lcd_4line();
-//    lcd.ClrDisplay();
-//    lcd.setLine("ADC", 1);
+    lcd.lcd_4line();
+    lcd.ClrDisplay();
+    lcd.setLine("Straight", 1);
+    lcd.refresh();
 //    lcd.setLine("Measurements", 2);
-//    lcd.refresh();
 
+    P3OUT |= L_FORWARD;
+    P3OUT &= ~L_REVERSE;
+    P3OUT |= R_FORWARD;
+    P3OUT &= ~R_REVERSE;
+    __delay_cycles(8000000);
+    __delay_cycles(8000000);
+    //__delay_cycles(8000000);
+    lcd.setLine("Off", 1);
+    lcd.refresh();
+    P3OUT &= ~L_FORWARD;
+    P3OUT &= ~L_REVERSE;
+    P3OUT &= ~R_FORWARD;
+    P3OUT &= ~R_REVERSE;
+    __delay_cycles(8000000);
+    __delay_cycles(8000000);
+    __delay_cycles(8000000);
+    lcd.setLine("Reverse", 1);
+    lcd.refresh();
+    P3OUT &= ~L_FORWARD;
+    P3OUT |= L_REVERSE;
+    P3OUT &= ~R_FORWARD;
+    P3OUT |= R_REVERSE;
+    __delay_cycles(8000000);
+    __delay_cycles(8000000);
+    //__delay_cycles(8000000);
+    lcd.setLine("Off", 1);
+        lcd.refresh();
+    P3OUT &= ~L_FORWARD;
+    P3OUT &= ~L_REVERSE;
+    P3OUT &= ~R_FORWARD;
+    P3OUT &= ~R_REVERSE;
     //LPM3
     static char buff_line_1[11];
     static char buff_line_2[11];
